@@ -1,6 +1,6 @@
 
 
-!pip install -qU 'langgraph==0.2.45' 'langchain-google-genai==2.0.4' streamlit
+!pip install -qU langgraph==0.2.45 langchain-google-genai==2.0.4 streamlit
 
 import os
 import streamlit as st
