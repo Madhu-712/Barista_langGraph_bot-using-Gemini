@@ -133,14 +133,19 @@ graph_builder.add_edge("ordering", "chatbot")
 graph_builder.add_edge(START, "chatbot")
 
 graph = graph_builder.compile()
-
 # --- Streamlit App ---
 if "state" not in st.session_state:
     st.session_state.state = {"messages": []}
 
+# Initialize st.session_state.user_input
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""  
+
 if st.session_state.user_input:  
     st.session_state.state = graph.invoke(st.session_state.state, config={"recursion_limit": 100})
     st.session_state.user_input = ""  # Clear input after processing
+
+
 
 # Display conversation
 st.text_area("Conversation:", value="\n".join([msg.content for msg in st.session_state.state["messages"]]), height=300)
