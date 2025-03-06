@@ -223,6 +223,9 @@ graph = graph_builder.compile()
 # --- Streamlit App ---
 if "state" not in st.session_state:
     st.session_state.state = {"messages": []}
+    # Initialize 'user_input' within the session state
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""  
 
 if st.session_state.user_input:
     st.session_state.state = graph.invoke(st.session_state.state, config={"recursion_limit": 100})
