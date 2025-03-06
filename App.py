@@ -16,15 +16,11 @@ from collections.abc import Iterable
 from random import randint
 
 
-# --- Setup ---
-import getpass  # Import getpass
 
 # Check if GOOGLE_API_KEY is already set in the environment
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
-# If not set, prompt the user to enter it securely
-if not GOOGLE_API_KEY:
-    GOOGLE_API_KEY = getpass.getpass("Enter your Google API Key: ")
+
 
 # Set the GOOGLE_API_KEY environment variable
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
