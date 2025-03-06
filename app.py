@@ -14,6 +14,8 @@ from langchain_core.messages.ai import AIMessage
 from langchain_core.messages.tool import ToolMessage
 from collections.abc import Iterable
 from random import randint
+from langgraph.graph.message import add_messages  # Import add_messages
+
 
 
 # --- Setup ---
