@@ -220,22 +220,32 @@ graph_builder.add_edge(START, "chatbot")
 
 graph = graph_builder.compile()
 
-# --- Streamlit App ---
-if "state" not in st.session_state:
-    st.session_state.state = {"messages": []}
-    # Initialize 'user_input' within the session state
-if "user_input" not in st.session_state:
-    st.session_state.user_input = ""  
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-if st.session_state.user_input:
-    st.session_state.state = graph.invoke(st.session_state.state, config={"recursion_limit": 100})
-    st.session_state.user_input = ""  # Clear input after processing
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-# Display conversation
-st.text_area("Conversation:", value="\n".join([msg.content for msg in st.session_state.state["messages"]]), height=300)
+if user_input := st.chat_input("Enter your message"):
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
 
-# Display order if any
-if st.session_state.state.get("order"):
-    st.write("**Current Order:**")
-    for item in st.session_state.state["order"]:
-        st.write(f"- {item}")
+    config = {"configurable": {"thread_id": "1"},{"recursion_limit": 100}}
+    events = graph.stream(
+        {"messages": [HumanMessage(content=user_input)]},
+        config,
+        stream_mode="values",
+    )
+
+    for event in events:
+        if "messages" in event:
+            response_content = event["messages"][-1].content
+            st.session_state.messages.append(
+                {"role": "assistant", "content": response_content}
+            )
+            with st.chat_message("assistant"):
+                st.markdown(response_content)
+
+
