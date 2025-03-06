@@ -30,7 +30,7 @@ GOOGLE_API_KEY = os.environ.get("GEMINI_KEY")
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 
 # Initialize the LLM
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
 
 # --- State and Instructions ---
