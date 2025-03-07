@@ -37,17 +37,20 @@ def chatbot_with_tools(state: OrderState) -> OrderState:
     return defaults | state | {"messages": [new_output]}
 
 # Define the human node function
+
+
 def human_node(state: OrderState) -> OrderState:
     last_msg = state["messages"][-1]
     st.write("Bot:", last_msg.content)
     user_input = st.text_input("You: ", key="user_input_{}".format(len(state["messages"])))
-    
+
     if st.button("Send", key="send_button_{}".format(len(state["messages"]))):
-    if st.button("Start Chat", key="start_chat_button"):
         if user_input in {"q", "quit", "exit", "goodbye"}:
             state["finished"] = True
-        return state | {"messages": [("user", user_input)]}
+        state["messages"].append(("user", user_input))
     return state
+
+
 
 
 
