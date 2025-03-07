@@ -6,6 +6,7 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode
 from langchain_google_genai import ChatGoogleGenerativeAI
 from typing import Literal
+from typing import Annotated
 from typing_extensions import TypedDict
 from langgraph.graph.message import add_messages
 
