@@ -65,7 +65,7 @@ chat_with_human_graph = graph_builder.compile()
 
 
 # Streamlit app
-st.title("☕☕🍰🍦Barista order Chatbot🍵🥛🥤")
+st.title("☕🍰🍦Barista order Chatbot🍵🥛🥤")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
