@@ -1,4 +1,3 @@
-
 import streamlit as st
 from langchain_core.messages.ai import AIMessage
 from langchain_core.tools import tool
@@ -22,14 +21,11 @@ BARISTABOT_SYSINT = (
 )
 WELCOME_MSG = "Welcome to the BaristaBot cafe. How may I serve you today?"
 
-
 # Initial setup
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 llm_with_tools = llm.bind_tools([])
 
 # Define the chatbot function
-
-
 def chatbot_with_tools(state: OrderState) -> OrderState:
     defaults = {"order": [], "finished": False}
     if state["messages"]:
@@ -39,10 +35,7 @@ def chatbot_with_tools(state: OrderState) -> OrderState:
         new_output = llm_with_tools.invoke([BARISTABOT_SYSINT, AIMessage(content=WELCOME_MSG)])
     return defaults | state | {"messages": [new_output]}
 
-
 # Define the human node function
-
-
 def human_node(state: OrderState) -> OrderState:
     last_msg = state["messages"][-1]
     st.write("Bot:", last_msg.content)
@@ -53,10 +46,6 @@ def human_node(state: OrderState) -> OrderState:
             state["finished"] = True
         state["messages"].append(("user", user_input))
     return state
-
-
-
-
 
 # Define the exit condition function
 def maybe_exit_human_node(state: OrderState) -> Literal["chatbot", "__end__"]:
@@ -85,3 +74,15 @@ if st.button("Start Chat"):
         state = chat_with_human_graph.invoke(state)
 
 st.write("Conversation ended.")
+
+
+
+
+
+
+
+
+
+
+
+
