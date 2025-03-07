@@ -28,13 +28,16 @@ llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 llm_with_tools = llm.bind_tools([])
 
 # Define the chatbot function
+# Define the chatbot function
 def chatbot_with_tools(state: OrderState) -> OrderState:
     defaults = {"order": [], "finished": False}
     if state["messages"]:
         new_output = llm_with_tools.invoke([BARISTABOT_SYSINT] + state["messages"])
     else:
-        new_output = AIMessage(content=WELCOME_MSG)
+        # Ensure there's always a message to avoid empty text parameter
+        new_output = llm_with_tools.invoke([BARISTABOT_SYSINT, AIMessage(content=WELCOME_MSG)])
     return defaults | state | {"messages": [new_output]}
+
 
 # Define the human node function
 
