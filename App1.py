@@ -40,12 +40,15 @@ def chatbot_with_tools(state: OrderState) -> OrderState:
 def human_node(state: OrderState) -> OrderState:
     last_msg = state["messages"][-1]
     st.write("Bot:", last_msg.content)
-    user_input = st.text_input("You: ", key="user_input")
+    user_input = st.text_input("You: ", key="user_input_{}".format(len(state["messages"])))
     if st.button("Send"):
         if user_input in {"q", "quit", "exit", "goodbye"}:
             state["finished"] = True
         return state | {"messages": [("user", user_input)]}
     return state
+
+
+
 
 # Define the exit condition function
 def maybe_exit_human_node(state: OrderState) -> Literal["chatbot", "__end__"]:
