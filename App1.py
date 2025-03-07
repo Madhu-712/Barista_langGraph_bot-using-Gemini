@@ -16,6 +16,13 @@ class OrderState(TypedDict):
     order: list[str]
     finished: bool
 
+BARISTABOT_SYSINT = (
+    "system",
+    "You are a BaristaBot, an interactive cafe ordering system. [Instructions as before]",
+)
+WELCOME_MSG = "Welcome to the BaristaBot cafe. How may I serve you today?"
+
+
 # Initial setup
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 llm_with_tools = llm.bind_tools([])
