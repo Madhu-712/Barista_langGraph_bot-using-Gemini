@@ -79,7 +79,7 @@ if user_input := st.chat_input("Enter your message"):
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    config = {"configurable": {"thread_id": "1"}{"recursion_limit": 100}
+    config = {"configurable": {"thread_id": "1"}{"recursion_limit": 100}}
     events = graph.stream(
         {"messages": [HumanMessage(content=user_input)]},
         config,
