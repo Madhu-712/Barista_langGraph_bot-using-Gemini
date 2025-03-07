@@ -41,12 +41,13 @@ def human_node(state: OrderState) -> OrderState:
     last_msg = state["messages"][-1]
     st.write("Bot:", last_msg.content)
     user_input = st.text_input("You: ", key="user_input_{}".format(len(state["messages"])))
-    if st.button("Send"):
+    
+    if st.button("Send", key="send_button_{}".format(len(state["messages"]))):
+    if st.button("Start Chat", key="start_chat_button"):
         if user_input in {"q", "quit", "exit", "goodbye"}:
             state["finished"] = True
         return state | {"messages": [("user", user_input)]}
     return state
-
 
 
 
